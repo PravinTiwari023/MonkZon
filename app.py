@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from LLM import generate_text
 
 app = Flask(__name__)
 
@@ -12,16 +13,15 @@ def receive_message():
     data = request.get_json()
     user_message = data.get('message')
 
-    print(f"User message: {user_message}")
+    text = generate_text(user_message)
 
     # Process the user message (call your logic here)
     # ...
 
     # Generate a response message from the bot
-    bot_message = "Message recevied boy!! thanks"
 
     # Return the bot message as JSON
-    return jsonify({'message': bot_message})
+    return jsonify({'message': text})
 
 if __name__ == '__main__':
     app.run(debug=True)
